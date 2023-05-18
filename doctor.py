@@ -8,13 +8,13 @@ class DOCTOR(USER):
                  education=None, income=None, email=None, username=None, 
                  password=None, city=None, country=None, postal_code=None, 
                  confirm_password=None,docid=None,remarks=None,patid=None,input_data=None):
-        super().__init__(fname, lname, phone, age, sex, education, income, email, 
-                         username, password)
+        super().__init__(fname=fname, lname=lname, phone=phone,age= age, sex=sex,education= education, income=income,email= email, 
+                         username=username,password= password)
         self.docid=docid
         self.patid=patid
         self.input_data=input_data
-        print(self.input_data)
-        print(input_data)
+        # print(self.input_data)
+        # print(input_data)
         self.model = joblib.load("model.pkl")
         self.mydb = mysql.connector.connect(
             host="localhost",
@@ -25,12 +25,13 @@ class DOCTOR(USER):
         
     def Prediction(self):
         input_list = []
+        # print(self.input_data)
         for key, value in self.input_data.items():
             input_list.append(value)
         input_list = [int(value) for value in input_list]
         # print(input_list)
         pred=self.model.predict([input_list])
-        print(pred)
+        # print(pred)
         return pred
 
     def Login(self):

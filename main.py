@@ -48,22 +48,24 @@ class loginrun(QWidget):
                 cursor.execute(f"SELECT id FROM doctor WHERE username = ('{doc.username}')")
                 result = cursor.fetchone()
                 docid=result[0]
-                print('talha'+str(docid))
+                # print('talha'+str(docid))
             finally:
                 cursor.close()
                 con.close()
-            self.a=Dashboardrun(docid)
+            self.a=Dashboardrun(doc=doc,docid=docid)
             self.a.setWindowTitle("Dashboard")
             self.a.ui.profile_label.setText(doc.username)
             self.a.ui.menu_label.setText("Dashboard")
             self.a.show()
 
 class signuprun(QWidget):
-    def __init__(self):
+    def __init__(self,doc,docid=None):
         super().__init__()
+        self.doc=doc
         self.ui = Ui_signuppage()
         self.ui.setupUi(self)
         self.ui.signup_pushButton.clicked.connect(self.run)
+        self.docid=docid
         
     def run(self):
         doc=DOCTOR()
@@ -87,12 +89,16 @@ class signuprun(QWidget):
         else:
             QMessageBox.warning(None,"Login", "signned up sucessfully!")
             self.hide()
-            self.a=Dashboardrun()
+            self.a=Dashboardrun(doc=self.doc,docid=self.docid)
+            self.a.setWindowTitle("Dashboard")
+            self.a.ui.profile_label.setText(doc.username)
+            self.a.ui.menu_label.setText("Dashboard")
             self.a.show()
     
 class AddPatientInforun(QWidget):
-    def __init__(self,docid):
+    def __init__(self,doc=None,docid=None):
         super().__init__()
+        self.doc=doc
         self.docid=docid
         self.ui = Ui_addpatientinfopage()
         self.ui.setupUi(self)
@@ -121,16 +127,17 @@ class AddPatientInforun(QWidget):
             cursor.execute("SELECT idinfo FROM patientinfo ORDER BY idinfo DESC LIMIT 1")
             result = cursor.fetchall()
             patid=int(result[0][0])
-            print('hello1 '+str(patid))
+            # print('hello1 '+str(patid))
         finally:
             cursor.close()
             con.close()
-        self.a=AddPatientMedicalInforun(patid,self.docid,pat.sex,pat.education,pat.income,pat.age)
+        self.a=AddPatientMedicalInforun(doc=self.doc,patid=patid,docid=self.docid,sex=pat.sex,education=pat.education,income=pat.income,age=pat.age)
         self.a.show()
 
 class AddPatientMedicalInforun(QWidget):
-    def __init__(self,patid=None,docid=None,education=None,income=None,age=None,sex=None):
+    def __init__(self,doc=None,patid=None,docid=None,education=None,income=None,age=None,sex=None):
         super().__init__()
+        self.doc=doc
         self.patid=patid
         self.docid=docid
         self.educ=education
@@ -264,20 +271,22 @@ class AddPatientMedicalInforun(QWidget):
             "DiffWalk": pat.diffwalk,
             "Sex": self.sex,
             "Age": self.age,
-            "Education": self.educ,
+            "Education": '4',
             "Income": self.income
             }
             pat.AddPatientMedicalInfo()
             self.hide()
-            self.a=remarkspagerun(self.docid,self.patid,input_data)
-            print(input_data)
+            self.a=remarkspagerun(self.doc,self.docid,self.patid,input_data)
+            # print(input_data)
             self.a.show()
         else:
             QMessageBox.critical(None,'selection error','you missed something')
 
 class ViewPatientInforun(QWidget):
-    def __init__(self,patient_id=None):
+    def __init__(self,doc=None,patient_id=None,docid=None):
         super().__init__()
+        self.doc=doc
+        self.docid=docid
         self.ui = Ui_viewpatientinfopage()
         self.ui.setupUi(self)
         self.patient_id=patient_id
@@ -288,7 +297,7 @@ class ViewPatientInforun(QWidget):
         
     def edit(self):
         self.hide()
-        self.a=EditPatientInforun()
+        self.a=EditPatientInforun(doc=self.doc,docid=self.docid)
         self.a.show()
         
     def delete(self):
@@ -302,13 +311,18 @@ class ViewPatientInforun(QWidget):
             con.close()
         
     def back(self):
-        self.a=Dashboardrun()
+        # doc=DOCTOR()
+        self.a=Dashboardrun(doc=self.doc,docid=self.docid)
+        self.a.setWindowTitle("Dashboard")
+        self.a.ui.profile_label.setText(self.doc.username)
+        self.a.ui.menu_label.setText("Dashboard")
         self.close()
         self.a.show()
 
 class ViewPatientMedicalInforun(QWidget):
-    def __init__(self,patient_id=None):
+    def __init__(self,doc=None,patient_id=None,docid=None):
         super().__init__()
+        self.doc=doc
         self.ui = Ui_viewpatientmedicalinfopage()
         self.ui.setupUi(self)
         self.patient_id=patient_id
@@ -319,20 +333,26 @@ class ViewPatientMedicalInforun(QWidget):
         
     def edit(self):
         self.hide()
-        self.a=EditPatientMedicalInforun()
+        self.a=EditPatientMedicalInforun(doc=self.doc,docid=self.docid)
         self.a.show()
         
     def delete(self):
         pass
 
     def back(self):
-        self.a=Dashboardrun()
+        doc=DOCTOR()
+        self.a=Dashboardrun(docid=self.docid)
+        self.a.setWindowTitle("Dashboard")
+        self.a.ui.profile_label.setText(doc.username)
+        self.a.ui.menu_label.setText("Dashboard")
         self.close()
         self.a.show()
 
 class EditPatientInforun(QWidget):
-    def __init__(self):
+    def __init__(self,doc=None,docid=None):
         super().__init__()
+        self.doc=doc
+        self.docid=docid
         self.ui = Ui_editpatientinfopage()
         self.ui.setupUi(self)
         self.ui.back_pushButton.clicked.connect(self.back)
@@ -340,15 +360,40 @@ class EditPatientInforun(QWidget):
         
     def back(self):
         self.hide()
-        self.a=ViewPatientInforun()
+        self.a=ViewPatientInforun(doc=self.doc,docid=self.docid)
+        self.a.setWindowTitle("Doctor Profile Info")
+        self.a.ui.viewpatientinfo_label.setText("Doctor Profile Info")
+        con =Connection()
+        cursor=con.cursor()
+        try:
+            cursor.execute(f"SELECT * FROM doctor WHERE id = {self.docid}")
+            result = cursor.fetchone()
+        finally:
+            cursor.close()
+            con.close()
+        
+        self.a.ui.postal_out_label.setText(str(result[12]))
+        self.a.ui.email_out_label.setText(str(result[6]))
+        self.a.ui.phone_out_label.setText(str(result[13]))
+        self.a.ui.income_out_label.setText(str(result[8]))
+        self.a.ui.result_out_label.hide()
+        self.a.ui.result_label.hide()
+        self.a.ui.gender_out_label.setText(str(result[3]))
+        self.a.ui.country_out_label.setText(str(result[11]))
+        self.a.ui.education_out_label.setText(str(result[9]))
+        self.a.ui.city_out_label.setText(str(result[10]))
+        self.a.ui.age_out_label.setText(str(result[4]))
+        self.a.ui.name_out_label.setText(str(result[1]) + " " + str(result[2]))
         self.a.show()
         
     def save(self):
         self.mes=QMessageBox.information(None,'Information','saved sucessfully')
 
 class EditPatientMedicalInforun(QWidget):
-    def __init__(self):
+    def __init__(self,doc=None,docid=None):
         super().__init__()
+        self.doc=doc
+        self.docid=docid
         self.ui = Ui_editpatientmedicalinfopage()
         self.ui.setupUi(self)
         self.ui.back_pushButton.clicked.connect(self.back)
@@ -356,7 +401,7 @@ class EditPatientMedicalInforun(QWidget):
         
     def back(self):
         self.hide()
-        self.a=ViewPatientMedicalInforun()
+        self.a=ViewPatientMedicalInforun(doc=self.doc,docid=self.docid)
         self.a.show()
 
     def save(self):
@@ -364,8 +409,9 @@ class EditPatientMedicalInforun(QWidget):
         
 
 class Dashboardrun(QMainWindow):
-    def __init__(self,docid=None,search_value=None,search_term=None):
+    def __init__(self,doc=None,docid=None,search_value=None,search_term=None):
         super().__init__()
+        self.doc=doc
         self.docid=docid
         self.ui = Ui_dashboard()
         self.ui.setupUi(self)
@@ -376,8 +422,8 @@ class Dashboardrun(QMainWindow):
         self.ui.menu_pushButton.clicked.connect(self.menu)
         self.ui.search_pushButton.clicked.connect(self.searchrun)
         self.model = QStandardItemModel()
-        self.search_value=search_value
-        self.search_term=search_term
+        # self.search_value=search_value
+        # self.search_term=search_term
         # print(self.search_tedorm)
         self.username=self.ui.profile_label.text()
         # print('username'+self.username)
@@ -391,37 +437,27 @@ class Dashboardrun(QMainWindow):
                 self.docid=result[0]
             finally:
                 cursor.close()
-                con.close()
+                con.close()    
+        # print(type(self.docid))
+        con =Connection()
+        cursor=con.cursor()
+        try:
+            cursor.execute(f"select * from fyp.dashboard_view where doctor_id={self.docid};")
+            self.data = cursor.fetchall()
+            # print(self.data)
+        finally:
+            cursor.close()
+            con.close()
         # print('value1 '+self.search_value)
         # print('term1 '+self.search_term)
-        if self.search_value==None:    
-            con =Connection()
-            cursor=con.cursor()
-            try:
-                cursor.execute(f"select * from fyp.dashboard_view where doctor_id={self.docid};")
-                self.data = cursor.fetchall()
-            finally:
-                cursor.close()
-                con.close()
-        else:
-            print(self.search_term)
-            print(self.search_value)
-            con =Connection()
-            cursor=con.cursor()
-            try:
-                cursor.execute(f"select * from dashboard_view where doctor_id= {self.docid} and {self.search_value} LIKE '%{self.search_term}%';")
-                # and {self.search_value} LIKE {self.search_term}
-                self.data = cursor.fetchall()
-            finally:
-                cursor.close()
-                con.close()
         self.search()
+
         
     def viewpatient(self):
         self.hide()
         sender = self.sender()
         patient_id = sender.property("id")
-        self.a=ViewPatientInforun(patient_id)
+        self.a=ViewPatientInforun(doc=self.doc,docid=self.docid,patient_id=patient_id)
         con =Connection()
         cursor=con.cursor()
         try:
@@ -448,7 +484,7 @@ class Dashboardrun(QMainWindow):
         self.hide()
         sender = self.sender()
         patient_id = sender.property("id")
-        self.a=ViewPatientMedicalInforun(patient_id)
+        self.a=ViewPatientMedicalInforun(patient_id=patient_id,docid=self.docid)
         con =Connection()
         cursor=con.cursor()
         try:
@@ -511,18 +547,18 @@ class Dashboardrun(QMainWindow):
         self.a.show()
     
     def adddoctor(self):
-        self.a=signuprun()
+        self.a=signuprun(self.doc,self.docid)
         self.close()
         self.a.show()
     
     def addpatient(self):
-        self.a=AddPatientInforun(self.docid)
+        self.a=AddPatientInforun(self.doc,self.docid)
         self.close()
         self.a.show()
     
     def profile(self):
         self.close()
-        self.a=ViewPatientInforun()
+        self.a=ViewPatientInforun(doc=self.doc,docid=self.docid)
         self.a.setWindowTitle("Doctor Profile Info")
         self.a.ui.viewpatientinfo_label.setText("Doctor Profile Info")
         con =Connection()
@@ -568,25 +604,36 @@ class Dashboardrun(QMainWindow):
         pass
     
     def searchrun(self):
-        search_value=self.ui.search_comboBox.currentText()
-        search_term=self.ui.filter_lineEdit.text()
+        self.search_value=self.ui.search_comboBox.currentText()
+        self.search_term=self.ui.filter_lineEdit.text()
         docid=self.docid
         # print('value'+search_value)
         # print('term'+search_term)
-        self.a=Dashboardrun(docid=docid,search_value=search_value,search_term=search_term)
-        self.close()
-        self.a.show()
+        con =Connection()
+        cursor=con.cursor()
+        try:
+            cursor.execute(f"select * from dashboard_view where doctor_id= {self.docid} and {self.search_value} LIKE '%{self.search_term}%';")
+            # and {self.search_value} LIKE {self.search_term}
+            self.data = cursor.fetchall()
+        finally:
+            cursor.close()
+            con.close()
+        self.search()
+        # self.a=Dashboardrun(docid=docid,search_value=search_value,search_term=search_term)
+        # self.close()
+        # self.a.show()
         
     
 class remarkspagerun(QWidget):
-    def __init__(self,docid=None,patid=None,input_data=None):
+    def __init__(self,doc=None,docid=None,patid=None,input_data=None):
         super().__init__()
+        self.doc=doc
         self.docid=docid
         self.patid=patid
         self.input_data=input_data
-        print(input_data)
-        print(patid)
-        print(docid)
+        # print(input_data)
+        # print(patid)
+        # print(docid)
         self.ui = Ui_remarkspage()
         self.ui.setupUi(self)
         self.ui.save_pushButton.clicked.connect(self.save)
@@ -598,7 +645,7 @@ class remarkspagerun(QWidget):
         elif self.pred==1:
             self.ui.predout_label.setText("You Have Diabeties!!")
         else:
-            QMessageBox.critical(None,"prediction","prediction Error")
+            QMessageBox.critical(None,"Prediction","prediction Error")
 
         
     def save(self):
@@ -609,12 +656,19 @@ class remarkspagerun(QWidget):
             try:
                 cursor.execute(f"INSERT INTO result (doctor_id, resultcol, datetime,remarks,patient_id) VALUES ('{self.docid}','You are Safe','{datetime.datetime.now()}','{remarks}','{self.patid}')")
                 con.commit()
-                print("Data inserted successfully")
+                QMessageBox.information(None,"Congrats","Data saved successfully")
+                # print()
             except Exception as e:
-                print("Error occurred:", e)
+                QMessageBox.information(None,"Error","Error occured")
             finally:
                 cursor.close()
                 con.close()
+                self.a=Dashboardrun(doc=self.doc,docid=self.docid)
+                self.a.setWindowTitle("Dashboard")
+                self.a.ui.profile_label.setText(self.doc.username)
+                self.a.ui.menu_label.setText("Dashboard")
+                self.close()
+                self.a.show()
         elif self.pred==1:
             remarks = self.ui.remarks_textEdit.toPlainText()
             con =Connection()
@@ -622,19 +676,22 @@ class remarkspagerun(QWidget):
             try:
                 cursor.execute(f"INSERT INTO result (doctor_id, resultcol, datetime,remarks,patient_id) VALUES ('{self.docid}','You Have Diabeties!!','{datetime.datetime.now()}','{remarks}','{self.patid}')")
                 con.commit()
-                print("Data inserted successfully")
+                QMessageBox.information(None,"Congrats","Data saved successfully")
             except Exception as e:
-                print("Error occurred:", e)
+                QMessageBox.information(None,"Error","Error occurred")
             finally:
                 cursor.close()
                 con.close()
-        self.close()
-        self.a=Dashboardrun()
-        self.show()
+                self.a=Dashboardrun(doc=self.doc,docid=self.docid)
+                self.a.setWindowTitle("Dashboard")
+                self.a.ui.profile_label.setText(self.doc.username)
+                self.a.ui.menu_label.setText("Dashboard")
+                self.close()
+                self.a.show()
             
     def back(self):
         self.close()
-        self.a=AddPatientMedicalInforun(self.docid,self.patid)
+        self.a=AddPatientMedicalInforun(doc=self.doc,docid=self.docid,patid=self.patid)
         self.close()
         self.a.show()
         
