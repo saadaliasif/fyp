@@ -283,8 +283,9 @@ class AddPatientMedicalInforun(QWidget):
             QMessageBox.critical(None,'selection error','you missed something')
 
 class ViewPatientInforun(QWidget):
-    def __init__(self,doc=None,patient_id=None,docid=None):
+    def __init__(self,pid=None,doc=None,patient_id=None,docid=None):
         super().__init__()
+        self.id=pid
         self.doc=doc
         self.docid=docid
         self.ui = Ui_viewpatientinfopage()
@@ -293,11 +294,12 @@ class ViewPatientInforun(QWidget):
         self.ui.edit_pushButton.clicked.connect(self.edit)
         self.ui.back_pushButton.clicked.connect(self.back)
         self.ui.delete_pushButton.clicked.connect(self.delete)
+        # print(self.username)
 
         
     def edit(self):
         self.hide()
-        self.a=EditPatientInforun(doc=self.doc,docid=self.docid)
+        self.a=EditPatientInforun(pid=self.id,doc=self.doc,docid=self.docid)
         self.a.show()
         
     def delete(self):
@@ -349,42 +351,70 @@ class ViewPatientMedicalInforun(QWidget):
         self.a.show()
 
 class EditPatientInforun(QWidget):
-    def __init__(self,doc=None,docid=None):
+    def __init__(self,pid=None,doc=None,docid=None):
         super().__init__()
+        self.id=pid
         self.doc=doc
         self.docid=docid
         self.ui = Ui_editpatientinfopage()
         self.ui.setupUi(self)
         self.ui.back_pushButton.clicked.connect(self.back)
         self.ui.save_pushButton.clicked.connect(self.save)
+        # print(self.username)
         
     def back(self):
         self.hide()
-        self.a=ViewPatientInforun(doc=self.doc,docid=self.docid)
-        self.a.setWindowTitle("Doctor Profile Info")
-        self.a.ui.viewpatientinfo_label.setText("Doctor Profile Info")
-        con =Connection()
-        cursor=con.cursor()
-        try:
-            cursor.execute(f"SELECT * FROM doctor WHERE id = {self.docid}")
-            result = cursor.fetchone()
-        finally:
-            cursor.close()
-            con.close()
+        if self.id is None:
+            self.a=ViewPatientInforun(doc=self.doc,docid=self.docid)
+            self.a.setWindowTitle("Doctor Profile Info")
+            self.a.ui.viewpatientinfo_label.setText("Doctor Profile Info")
+            con =Connection()
+            cursor=con.cursor()
+            try:
+                cursor.execute(f"SELECT * FROM doctor WHERE id = ('{self.docid}')")
+                result = cursor.fetchone()
+            finally:
+                cursor.close()
+                con.close()
+            self.a.ui.postal_out_label.setText(str(result[12]))
+            self.a.ui.email_out_label.setText(str(result[6]))
+            self.a.ui.phone_out_label.setText(str(result[13]))
+            self.a.ui.income_out_label.setText(str(result[8]))
+            self.a.ui.result_out_label.hide()
+            self.a.ui.result_label.hide()
+            self.a.ui.gender_out_label.setText(str(result[3]))
+            self.a.ui.country_out_label.setText(str(result[11]))
+            self.a.ui.education_out_label.setText(str(result[9]))
+            self.a.ui.city_out_label.setText(str(result[10]))
+            self.a.ui.age_out_label.setText(str(result[4]))
+            self.a.ui.name_out_label.setText(str(result[1]) + " " + str(result[2]))
+            self.a.show()
+        else:
+            self.a=ViewPatientInforun(pid=self.id,doc=self.doc,docid=self.docid)
+            self.a.setWindowTitle("Patient Profile Info")
+            self.a.ui.viewpatientinfo_label.setText("Patient Profile Info")
+            con =Connection()
+            cursor=con.cursor()
+            try:
+                cursor.execute(f"SELECT * FROM patientinfo WHERE idinfo = ('{self.id}')")
+                result = cursor.fetchone()
+            finally:
+                cursor.close()
+                con.close()   
+            self.a.ui.postal_out_label.setText(str(result[9]))
+            self.a.ui.email_out_label.setText(str(result[10]))
+            self.a.ui.phone_out_label.setText(str(result[11]))
+            self.a.ui.income_out_label.setText(str(result[5]))
+            self.a.ui.result_out_label.hide()
+            self.a.ui.result_label.hide()
+            self.a.ui.gender_out_label.setText(str(result[3]))
+            self.a.ui.country_out_label.setText(str(result[7]))
+            self.a.ui.education_out_label.setText(str(result[6]))
+            self.a.ui.city_out_label.setText(str(result[8]))
+            self.a.ui.age_out_label.setText(str(result[4]))
+            self.a.ui.name_out_label.setText(str(result[1]) + " " + str(result[2]))
+            self.a.show()
         
-        self.a.ui.postal_out_label.setText(str(result[12]))
-        self.a.ui.email_out_label.setText(str(result[6]))
-        self.a.ui.phone_out_label.setText(str(result[13]))
-        self.a.ui.income_out_label.setText(str(result[8]))
-        self.a.ui.result_out_label.hide()
-        self.a.ui.result_label.hide()
-        self.a.ui.gender_out_label.setText(str(result[3]))
-        self.a.ui.country_out_label.setText(str(result[11]))
-        self.a.ui.education_out_label.setText(str(result[9]))
-        self.a.ui.city_out_label.setText(str(result[10]))
-        self.a.ui.age_out_label.setText(str(result[4]))
-        self.a.ui.name_out_label.setText(str(result[1]) + " " + str(result[2]))
-        self.a.show()
         
     def save(self):
         self.mes=QMessageBox.information(None,'Information','saved sucessfully')
@@ -422,10 +452,10 @@ class Dashboardrun(QMainWindow):
         self.ui.menu_pushButton.clicked.connect(self.menu)
         self.ui.search_pushButton.clicked.connect(self.searchrun)
         self.model = QStandardItemModel()
+        self.username=self.ui.profile_label.text()
         # self.search_value=search_value
         # self.search_term=search_term
         # print(self.search_tedorm)
-        self.username=self.ui.profile_label.text()
         # print('username'+self.username)
         self.ui.records_tableView.setModel(self.model)
         if self.docid == None:
@@ -457,7 +487,7 @@ class Dashboardrun(QMainWindow):
         self.hide()
         sender = self.sender()
         patient_id = sender.property("id")
-        self.a=ViewPatientInforun(doc=self.doc,docid=self.docid,patient_id=patient_id)
+        self.a=ViewPatientInforun(pid=patient_id,doc=self.doc,docid=self.docid,patient_id=patient_id)
         con =Connection()
         cursor=con.cursor()
         try:
@@ -558,13 +588,14 @@ class Dashboardrun(QMainWindow):
     
     def profile(self):
         self.close()
+        self.username=self.ui.profile_label.text()
         self.a=ViewPatientInforun(doc=self.doc,docid=self.docid)
         self.a.setWindowTitle("Doctor Profile Info")
         self.a.ui.viewpatientinfo_label.setText("Doctor Profile Info")
         con =Connection()
         cursor=con.cursor()
         try:
-            cursor.execute(f"SELECT * FROM doctor WHERE username = ('{self.ui.profile_label.text()}')")
+            cursor.execute(f"SELECT * FROM doctor WHERE username = ('{self.username}')")
             result = cursor.fetchone()
         finally:
             cursor.close()
