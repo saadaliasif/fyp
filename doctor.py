@@ -58,17 +58,29 @@ class DOCTOR(USER):
         if self.password != self.confirm_password:
             QMessageBox.warning(None,"Login", "password doesn't match")
             return 0    
-        hashed_password = hashlib.md5(self.password.encode('utf-8')).hexdigest()    
         cursor = self.mydb.cursor()
         try:
-            sql = f"INSERT INTO doctor (first_name,last_name,age,sex,education,income,city,country,postal_code,username, email, password,phone) VALUES ('{self.fname}','{self.lname}','{self.age}','{self.sex}','{self.education}','{self.income}','{self.city}','{self.country}','{self.postal_code}','{self.username}','{self.email}','{hashed_password}','{self.phone}')"
+            sql = f"SELECT * FROM doctor WHERE username = '{self.username}'"
+            # values = ()
             cursor.execute(sql)
-            self.mydb.commit()
-            return 1
-        except Exception as e:
-            self.mydb.rollback()
-            QMessageBox.warning(None,"Login", "database error"+ str(e))
-            return 0
+            result = cursor.fetchone()
         finally:
             cursor.close()
-            self.mydb.close()
+        if result is not None:      
+            QMessageBox.information(None,'Information','username already exist')
+            return 0
+        else:
+            hashed_password = hashlib.md5(self.password.encode('utf-8')).hexdigest()    
+            cursor = self.mydb.cursor()
+            try:
+                sql = f"INSERT INTO doctor (first_name,last_name,age,sex,education,income,city,country,postal_code,username, email, password,phone) VALUES ('{self.fname}','{self.lname}','{self.age}','{self.sex}','{self.education}','{self.income}','{self.city}','{self.country}','{self.postal_code}','{self.username}','{self.email}','{hashed_password}','{self.phone}')"
+                cursor.execute(sql)
+                self.mydb.commit()
+                return 1
+            except Exception as e:
+                self.mydb.rollback()
+                QMessageBox.warning(None,"Login", "database error"+ str(e))
+                return 0
+            finally:
+                cursor.close()
+                self.mydb.close()

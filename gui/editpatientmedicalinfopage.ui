@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>editpatientmedicalinfopage</class>
+ <widget class="QWidget" name="editpatientmedicalinfopage">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1121</width>
+    <height>833</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>MV Boli</family>
+    <pointsize>14</pointsize>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QLabel" name="editpatientmedicalinfo_label">
+   <property name="geometry">
+    <rect>
+     <x>320</x>
+     <y>10</y>
+     <width>501</width>
+     <height>52</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>MV Boli</family>
+     <pointsize>24</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Edit Patient Medical Info</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>60</y>
+     <width>971</width>
+     <height>691</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="8" column="0">
+     <widget class="QLabel" name="fruit_label">
+      <property name="text">
+       <string>Fruits:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="smoker_label">
+      <property name="text">
+       <string>Smoker:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="bmi_label">
+      <property name="text">
+       <string>BMI:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="9" column="0">
+     <widget class="QLabel" name="veg_label">
+      <property name="text">
+       <string>vegetables:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="10" column="0">
+     <widget class="QLabel" name="heavyalcholcons_label">
+      <property name="text">
+       <string>Heavy Alcohol Consumption:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="cholcheck_label">
+      <property name="text">
+       <string>Cholestrol check:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="highchol_label">
+      <property name="text">
+       <string>High cholestrol:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0">
+     <widget class="QLabel" name="stroke_label">
+      <property name="text">
+       <string>Stroke:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="0">
+     <widget class="QLabel" name="phyact_label">
+      <property name="text">
+       <string>Physical Activity:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="11" column="0">
+     <widget class="QLabel" name="anyhealthcare_label">
+      <property name="text">
+       <string>Any healthcare:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="15" column="0">
+     <widget class="QLabel" name="menhelth_label">
+      <property name="text">
+       <string>mental health:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="16" column="0">
+     <widget class="QLabel" name="diffwalk_label">
+      <property name="text">
+       <string>diffwalk</string>
+      </property>
+     </widget>
+    </item>
+    <item row="14" column="1">
+     <widget class="QLineEdit" name="phyhelth_lineEdit"/>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="highbp_lineEdit"/>
+    </item>
+    <item row="16" column="1">
+     <widget class="QLineEdit" name="diffwalk_lineEdit"/>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="highchol_lineEdit"/>
+    </item>
+    <item row="8" column="1">
+     <widget class="QLineEdit" name="fruit_lineEdit"/>
+    </item>
+    <item row="10" column="1">
+     <widget class="QLineEdit" name="heavyalcholcons_lineEdit"/>
+    </item>
+    <item row="9" column="1">
+     <widget class="QLineEdit" name="vegitable_lineEdit"/>
+    </item>
+    <item row="11" column="1">
+     <widget class="QLineEdit" name="anyhealthcare_lineEdit"/>
+    </item>
+    <item row="13" column="1">
+     <widget class="QLineEdit" name="genhelth_lineEdit"/>
+    </item>
+    <item row="12" column="1">
+     <widget class="QLineEdit" name="nocostbcdoc_lineEdit"/>
+    </item>
+    <item row="13" column="0">
+     <widget class="QLabel" name="genhelth_label">
+      <property name="text">
+       <string>general health:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="14" column="0">
+     <widget class="QLabel" name="phyhelth_label">
+      <property name="text">
+       <string>physical health:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="15" column="1">
+     <widget class="QLineEdit" name="menhelth_lineEdit"/>
+    </item>
+    <item row="12" column="0">
+     <widget class="QLabel" name="nodocbccost_label">
+      <property name="text">
+       <string>No doctor because of cost:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="highbp_label">
+      <property name="text">
+       <string>High bp:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0">
+     <widget class="QLabel" name="heartdis_label">
+      <property name="text">
+       <string>Heart Disease:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QLineEdit" name="bmi_lineEdit"/>
+    </item>
+    <item row="2" column="1">
+     <widget class="QLineEdit" name="cholcheck_lineEdit"/>
+    </item>
+    <item row="4" column="1">
+     <widget class="QLineEdit" name="smoker_lineEdit"/>
+    </item>
+    <item row="5" column="1">
+     <widget class="QLineEdit" name="stroke_lineEdit"/>
+    </item>
+    <item row="6" column="1">
+     <widget class="QLineEdit" name="heartdisese__lineEdit"/>
+    </item>
+    <item row="7" column="1">
+     <widget class="QLineEdit" name="phyact_lineEdit"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>800</x>
+     <y>760</y>
+     <width>261</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QPushButton" name="back_pushButton">
+      <property name="text">
+       <string>Back</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="save_pushButton">
+      <property name="text">
+       <string>Save</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,3 +1,13 @@
+# -*- coding: utf-8 -*-
+
+################################################################################
+## Form generated from reading UI file 'Dashboard.ui'
+##
+## Created by: Qt User Interface Compiler version 6.5.0
+##
+## WARNING! All changes made in this file will be lost when recompiling UI file!
+################################################################################
+
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
     QMetaObject, QObject, QPoint, QRect,
     QSize, QTime, QUrl, Qt)
@@ -9,7 +19,7 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
 from PySide6.QtWidgets import (QApplication, QComboBox, QHBoxLayout, QHeaderView,
     QLabel, QLineEdit, QMainWindow, QMenu,
     QMenuBar, QPushButton, QSizePolicy, QSpacerItem,
-    QStatusBar, QTableView, QVBoxLayout, QWidget,QStyledItemDelegate)
+    QStatusBar, QTableView, QVBoxLayout, QWidget)
 import icon_rc
 
 class Ui_dashboard(object):
@@ -139,11 +149,6 @@ class Ui_dashboard(object):
         self.search_comboBox.setObjectName(u"search_comboBox")
         self.search_comboBox.setBaseSize(QSize(0, 0))
         self.search_comboBox.setFont(font1)
-        self.search_comboBox.addItem("full_name")
-        self.search_comboBox.addItem("age")
-        self.search_comboBox.addItem("id")
-        self.search_comboBox.addItem("sex")
-        self.search_comboBox.addItem("resultcol")
 
         self.horizontalLayout.addWidget(self.search_comboBox)
 
@@ -164,19 +169,12 @@ class Ui_dashboard(object):
 
         self.records_tableView = QTableView(self.centralwidget)
         self.records_tableView.setObjectName(u"records_tableView")
-        self.records_tableView.setShowGrid(False)
+        self.records_tableView.setShowGrid(True)
         self.records_tableView.setGridStyle(Qt.NoPen)
         self.records_tableView.setSortingEnabled(False)
-        # self.records_tableView.
- # Create a delegate that does not allow editing
-        # delegate = QStyledItemDelegate()
-        # self.records_tableView.setItemDelegate(delegate)
-
-    # Set the edit triggers to NoEditTriggers
-        self.records_tableView.setEditTriggers(QTableView.NoEditTriggers)
 
         self.verticalLayout.addWidget(self.records_tableView)
-        self.verticalLayout.setStretchFactor(self.records_tableView, 1)
+
         self.verticalLayout.setStretch(0, 2)
         self.verticalLayout.setStretch(1, 2)
         self.verticalLayout.setStretch(2, 2)

@@ -10,4 +10,3 @@ with File:
 window=loginrun()
 window.show()
 sys.exit(app.exec())
-

@@ -11,6 +11,7 @@ from viewpatientinfopage import Ui_viewpatientinfopage
 from viewpatientmedicalinfopage import Ui_viewpatientmedicalinfopage
 from dashboardpage import Ui_dashboard
 from remarkspage import Ui_remarkspage
+import pyinputplus as pyip
 import datetime
 import mysql.connector
 from doctor import DOCTOR
@@ -35,28 +36,40 @@ class loginrun(QWidget):
         
     def run(self):
         doc=DOCTOR()
-        doc.username=self.ui.username_lineEdit.text()
-        doc.password=self.ui.password_lineEdit.text()
-        res=doc.Login()
-        if res == 0:
-            pass
+        username=self.ui.username_lineEdit.text()
+        password=self.ui.password_lineEdit.text()
+        # print('username:'+username)
+        # print('password:'+password)
+        if not username:
+            QMessageBox.warning(self, "Error", "Please enter a username.")
+            return
+        
+        elif not password:
+            QMessageBox.warning(self, "Error", "Please enter a password.")
+            return
         else:
-            self.hide()
-            con =Connection()
-            cursor=con.cursor()
-            try:
-                cursor.execute(f"SELECT id FROM doctor WHERE username = ('{doc.username}')")
-                result = cursor.fetchone()
-                docid=result[0]
-                # print('talha'+str(docid))
-            finally:
-                cursor.close()
-                con.close()
-            self.a=Dashboardrun(doc=doc,docid=docid)
-            self.a.setWindowTitle("Dashboard")
-            self.a.ui.profile_label.setText(doc.username)
-            self.a.ui.menu_label.setText("Dashboard")
-            self.a.show()
+            doc.username=self.ui.username_lineEdit.text()
+            doc.password=self.ui.password_lineEdit.text()
+            res=doc.Login()
+            if res == 0:
+                pass
+            else:
+                self.hide()
+                con =Connection()
+                cursor=con.cursor()
+                try:
+                    cursor.execute(f"SELECT id FROM doctor WHERE username = '{doc.username}'")
+                    result = cursor.fetchone()
+                    docid=result[0]
+                    # print('talha'+str(docid))
+                finally:
+                    cursor.close()
+                    con.close()
+                self.a=Dashboardrun(doc=doc,docid=docid)
+                self.a.setWindowTitle("Dashboard")
+                self.a.ui.profile_label.setText(doc.username)
+                self.a.ui.menu_label.setText("Dashboard")
+                self.a.show()
 
 class signuprun(QWidget):
     def __init__(self,doc,docid=None):
@@ -65,35 +78,123 @@ class signuprun(QWidget):
         self.ui = Ui_signuppage()
         self.ui.setupUi(self)
         self.ui.signup_pushButton.clicked.connect(self.run)
+        self.ui.back_pushButton.clicked.connect(self.back)
         self.docid=docid
+        
+    def back(self):
+        self.close()
+        self.a=Dashboardrun(doc=self.doc,docid=self.docid)
+        self.a.setWindowTitle("Dashboard")
+        self.a.ui.profile_label.setText(self.doc.username)
+        self.a.ui.menu_label.setText("Dashboard")
+        self.a.show()
         
     def run(self):
         doc=DOCTOR()
-        doc.fname=self.ui.first_name_lineEdit.text()
-        doc.lname=self.ui.last_name_lineEdit.text()
-        doc.age=self.ui.age_lineEdit.text()
-        doc.sex=self.ui.sex_lineEdit.text()
-        doc.phone=self.ui.phone_lineEdit.text()
-        doc.education=self.ui.education_lineEdit.text()
-        doc.income=self.ui.income_lineEdit.text()
-        doc.city=self.ui.city_lineEdit.text()
-        doc.country=self.ui.country_lineEdit.text()
-        doc.email=self.ui.email_lineEdit.text()
-        doc.username=self.ui.username_lineEdit.text()
-        doc.password=self.ui.password_lineEdit.text()
-        doc.confirm_password=self.ui.confirm_password_lineEdit.text()
-        doc.postal_code=self.ui.postal_code_lineEdit.text()
-        res=doc.Signup()
-        if res == 0:
-            pass
+        fname = self.ui.first_name_lineEdit.text()
+        lname = self.ui.last_name_lineEdit.text()
+        age = self.ui.age_lineEdit.text()
+        sex = self.ui.sex_lineEdit.text()
+        phone =self.ui.phone_lineEdit.text()
+        education = self.ui.education_lineEdit.text()
+        income = self.ui.income_lineEdit.text()
+        city = self.ui.city_lineEdit.text()
+        country = self.ui.country_lineEdit.text()
+        email = self.ui.email_lineEdit.text()
+        username = self.ui.username_lineEdit.text()
+        password = self.ui.password_lineEdit.text()
+        confirm_password = self.ui.confirm_password_lineEdit.text()
+        postal_code = self.ui.postal_code_lineEdit.text()
+        
+        if not fname:
+            QMessageBox.warning(self, "Error", "Please enter the first name.")
+            return
+        
+        elif not lname:
+            QMessageBox.warning(self, "Error", "Please enter the last name.")
+            return
+        
+        elif not age:
+            QMessageBox.warning(self, "Error", "Please enter the age.")
+            return
+        
+        elif not sex:
+            QMessageBox.warning(self, "Error", "Please enter the sex.")
+            return
+        
+        elif sex!='M' and sex!='F' :
+            QMessageBox.warning(self, "Error", "Please enter M for male, F for female in sex field")
+            return
+        
+        elif not phone:
+            QMessageBox.warning(self, "Error", "Please enter the phone number.")
+            return
+        
+        elif not education:
+            QMessageBox.warning(self, "Error", "Please enter the education.")
+            return
+        
+        elif not income:
+            QMessageBox.warning(self, "Error", "Please enter the income.")
+            return
+        
+        elif not city:
+            QMessageBox.warning(self, "Error", "Please enter the city.")
+            return
+        
+        elif not country:
+            QMessageBox.warning(self, "Error", "Please enter the country.")
+            return
+        
+        elif not email:
+            QMessageBox.warning(self, "Error", "Please enter the email.")
+            return
+        
+        elif not username:
+            QMessageBox.warning(self, "Error", "Please enter the username.")
+            return
+        
+        elif not password:
+            QMessageBox.warning(self, "Error", "Please enter the password.")
+            return
+        
+        elif not confirm_password:
+            QMessageBox.warning(self, "Error", "Please confirm the password.")
+            return
+        
+        elif password != confirm_password:
+            QMessageBox.warning(self, "Error", "Passwords do not match.")
+            return
+        
+        elif not postal_code:
+            QMessageBox.warning(self, "Error", "Please enter the postal code.")
+            return
         else:
-            QMessageBox.warning(None,"Login", "signned up sucessfully!")
-            self.hide()
-            self.a=Dashboardrun(doc=self.doc,docid=self.docid)
-            self.a.setWindowTitle("Dashboard")
-            self.a.ui.profile_label.setText(doc.username)
-            self.a.ui.menu_label.setText("Dashboard")
-            self.a.show()
+            doc.fname=self.ui.first_name_lineEdit.text()
+            doc.lname=self.ui.last_name_lineEdit.text()
+            doc.age=self.ui.age_lineEdit.text()
+            doc.sex=self.ui.sex_lineEdit.text()
+            doc.phone=self.ui.phone_lineEdit.text()
+            doc.education=self.ui.education_lineEdit.text()
+            doc.income=self.ui.income_lineEdit.text()
+            doc.city=self.ui.city_lineEdit.text()
+            doc.country=self.ui.country_lineEdit.text()
+            doc.email=self.ui.email_lineEdit.text()
+            doc.username=self.ui.username_lineEdit.text()
+            doc.password=self.ui.password_lineEdit.text()
+            doc.confirm_password=self.ui.confirm_password_lineEdit.text()
+            doc.postal_code=self.ui.postal_code_lineEdit.text()
+            res=doc.Signup()
+            if res == 0:
+                pass
+            else:
+                QMessageBox.warning(None,"Login", "signned up sucessfully!")
+                self.hide()
+                self.a=Dashboardrun(doc=self.doc,docid=self.docid)
+                self.a.setWindowTitle("Dashboard")
+                self.a.ui.profile_label.setText(self.doc.username)
+                self.a.ui.menu_label.setText("Dashboard")
+                self.a.show()
     
 class AddPatientInforun(QWidget):
     def __init__(self,doc=None,docid=None):
@@ -155,7 +256,6 @@ class AddPatientMedicalInforun(QWidget):
         
     def run(self):
         pat=PATIENT(patid=self.patid,docid=self.docid)
-        pat.bmi=self.ui.bmi_lineEdit.text()
         if self.ui.fhbp_radioButton.isChecked():
             a=0
         elif self.ui.thbp_radioButton.isChecked():
@@ -239,7 +339,24 @@ class AddPatientMedicalInforun(QWidget):
             y=1
         else: 
             y=2
+        
+        if not self.ui.bmi_lineEdit.text():
+            QMessageBox.warning(self, "Error", "Please enter the BMI.")
+            return
+        elif not self.ui.genhealth_lineEdit.text():
+            QMessageBox.warning(self, "Error", "Please enter the Gen health.")
+            return
+        
+        elif not self.ui.physhealth_lineEdit.text():
+            QMessageBox.warning(self, "Error", "Please enter phsyical health.")
+            return
+        
+        elif not self.ui.menhealth_lineEdit.text():
+            QMessageBox.warning(self, "Error", "Please enter mental health.")
+            return
+        
         pat.nodoc=y
+        pat.bmi=self.ui.bmi_lineEdit.text()
         pat.genhelth=self.ui.genhealth_lineEdit.text()
         pat.physhelth=self.ui.physhealth_lineEdit.text()
         pat.menthealth=self.ui.menhealth_lineEdit.text()
@@ -251,6 +368,10 @@ class AddPatientMedicalInforun(QWidget):
             n=2
         pat.diffwalk=n
         if (a!=2) and (b!=2) and (c!=2) and (d!=2) and (e!=2) and (f!=2) and (g!=2) and (h!=2) and (i!=2) and (j!=2) and (n!=2) and (z!=2) and (y!=2):
+            if self.sex == "F":
+                self.sex=0
+            if self.sex == "M" :
+                self.sex=1
             input_data = {
             "HighBP": pat.highbp,
             "HighChol": pat.highchol,
@@ -280,12 +401,11 @@ class AddPatientMedicalInforun(QWidget):
             # print(input_data)
             self.a.show()
         else:
-            QMessageBox.critical(None,'selection error','you missed something')
+            QMessageBox.critical(None,'selection error','You missed something')
 
 class ViewPatientInforun(QWidget):
-    def __init__(self,pid=None,doc=None,patient_id=None,docid=None):
+    def __init__(self,doc=None,patient_id=None,docid=None):
         super().__init__()
-        self.id=pid
         self.doc=doc
         self.docid=docid
         self.ui = Ui_viewpatientinfopage()
@@ -299,15 +419,27 @@ class ViewPatientInforun(QWidget):
         
     def edit(self):
         self.hide()
-        self.a=EditPatientInforun(pid=self.id,doc=self.doc,docid=self.docid)
+        self.a=EditPatientInforun(pid=self.patient_id,doc=self.doc,docid=self.docid)
         self.a.show()
         
     def delete(self):
         con =Connection()
         cursor=con.cursor()
         try:
+            cursor.execute(f"DELETE FROM result where patient_id = ({self.patient_id})")
+            cursor.execute(f"DELETE FROM patient where patientinfo_id = ({self.patient_id})")
             cursor.execute(f"DELETE FROM patientinfo where idinfo = ({self.patient_id})")
-            cursor.execute(f"DELETE FROM patientinfo where patientinfo_id = ({self.patient_id})")
+            con.commit()
+            QMessageBox.information(None, 'Information', 'Deleted successfully')
+            doc=DOCTOR()
+            self.a=Dashboardrun(doc=self.doc,docid=self.docid,)
+            self.a.setWindowTitle("Dashboard")
+            self.a.ui.profile_label.setText(self.doc.username)
+            self.a.ui.menu_label.setText("Dashboard")
+            self.close()
+            self.a.show()
+        except Exception as e:
+            QMessageBox.critical(None, 'Error', f"An error occurred: {str(e)}")
         finally:
             cursor.close()
             con.close()
@@ -325,6 +457,7 @@ class ViewPatientMedicalInforun(QWidget):
     def __init__(self,doc=None,patient_id=None,docid=None):
         super().__init__()
         self.doc=doc
+        self.docid=docid
         self.ui = Ui_viewpatientmedicalinfopage()
         self.ui.setupUi(self)
         self.patient_id=patient_id
@@ -335,11 +468,30 @@ class ViewPatientMedicalInforun(QWidget):
         
     def edit(self):
         self.hide()
-        self.a=EditPatientMedicalInforun(doc=self.doc,docid=self.docid)
+        self.a=EditPatientMedicalInforun(doc=self.doc,docid=self.docid,patientid=self.patient_id)
         self.a.show()
         
     def delete(self):
-        pass
+        con =Connection()
+        cursor=con.cursor()
+        try:
+            cursor.execute(f"DELETE FROM result where patient_id = ({self.patient_id})")
+            cursor.execute(f"DELETE FROM patient where patientinfo_id = ({self.patient_id})")
+            cursor.execute(f"DELETE FROM patientinfo where idinfo = ({self.patient_id})")
+            con.commit()
+            QMessageBox.information(None, 'Information', 'Deleted successfully')
+            doc=DOCTOR()
+            self.a=Dashboardrun(doc=self.doc,docid=self.docid,)
+            self.a.setWindowTitle("Dashboard")
+            self.a.ui.profile_label.setText(self.doc.username)
+            self.a.ui.menu_label.setText("Dashboard")
+            self.close()
+            self.a.show()
+        except Exception as e:
+            QMessageBox.critical(None, 'Error', f"An error occurred: {str(e)}")
+        finally:
+            cursor.close()
+            con.close()
 
     def back(self):
         doc=DOCTOR()
@@ -353,19 +505,62 @@ class ViewPatientMedicalInforun(QWidget):
 class EditPatientInforun(QWidget):
     def __init__(self,pid=None,doc=None,docid=None):
         super().__init__()
-        self.id=pid
+        self.patientid=pid
         self.doc=doc
+        print(self.patientid)
         self.docid=docid
         self.ui = Ui_editpatientinfopage()
         self.ui.setupUi(self)
-        self.ui.back_pushButton.clicked.connect(self.back)
-        self.ui.save_pushButton.clicked.connect(self.save)
-        # print(self.username)
+        if self.patientid is None:
+            con =Connection()
+            cursor=con.cursor()
+            try:
+                cursor.execute(f"SELECT * FROM doctor WHERE id = ({self.docid})")
+                self.result = cursor.fetchone()
+            finally:
+                cursor.close()
+                con.close()
+            self.setWindowTitle("edit doctor info")
+            self.ui.editpatientinfo_label.setText("edit doctor info")
+            self.ui.back_pushButton.clicked.connect(self.back)
+            self.ui.save_pushButton.clicked.connect(self.save)
+            self.ui.age_lineEdit.setText(str(self.result[4]))
+            self.ui.city_lineEdit.setText(str(self.result[10]))
+            self.ui.name_lineEdit.setText(str(self.result[1]) + " " + str(self.result[2]))
+            self.ui.income_lineEdit.setText(str(self.result[8]))
+            self.ui.country_lineEdit.setText(str(self.result[11]))
+            self.ui.educ_lineEdit.setText(str(self.result[9]))
+            self.ui.sex_lineEdit.setText(str(self.result[3]))
+            self.ui.email_lineEdit.setText(str(self.result[6]))
+            self.ui.phone_lineEdit.setText(str(self.result[13]))
+            self.ui.postal_lineEdit.setText(str(self.result[12]))
+        else:
+            con =Connection()
+            cursor=con.cursor()
+            try:
+                cursor.execute(f"SELECT * FROM patientinfo WHERE idinfo = ({self.patientid})")
+                self.result = cursor.fetchone()
+            finally:
+                cursor.close()
+                con.close()
+            self.ui.back_pushButton.clicked.connect(self.back)
+            self.ui.save_pushButton.clicked.connect(self.save)
+            self.ui.name_lineEdit.setText(str(self.result[1]) + " " + str(self.result[2]))
+            self.ui.age_lineEdit.setText(str(self.result[4]))
+            self.ui.sex_lineEdit.setText(str(self.result[3]))
+            self.ui.postal_lineEdit.setText(str(self.result[9]))
+            self.ui.country_lineEdit.setText(str(self.result[7]))
+            self.ui.city_lineEdit.setText(str(self.result[8]))
+            self.ui.educ_lineEdit.setText(str(self.result[6]))
+            self.ui.email_lineEdit.setText(str(self.result[10]))
+            self.ui.phone_lineEdit.setText(str(self.result[11]))
+            self.ui.income_lineEdit.setText(str(self.result[5]))
         
     def back(self):
+        print(self.patientid)
         self.hide()
-        if self.id is None:
-            self.a=ViewPatientInforun(doc=self.doc,docid=self.docid)
+        if self.patientid is None:
+            self.a=ViewPatientInforun(doc=self.doc,docid=self.docid,patient_id=self.patientid)
             self.a.setWindowTitle("Doctor Profile Info")
             self.a.ui.viewpatientinfo_label.setText("Doctor Profile Info")
             con =Connection()
@@ -390,13 +585,13 @@ class EditPatientInforun(QWidget):
             self.a.ui.name_out_label.setText(str(result[1]) + " " + str(result[2]))
             self.a.show()
         else:
-            self.a=ViewPatientInforun(pid=self.id,doc=self.doc,docid=self.docid)
+            self.a=ViewPatientInforun(patient_id=self.patientid,doc=self.doc,docid=self.docid)
             self.a.setWindowTitle("Patient Profile Info")
             self.a.ui.viewpatientinfo_label.setText("Patient Profile Info")
             con =Connection()
             cursor=con.cursor()
             try:
-                cursor.execute(f"SELECT * FROM patientinfo WHERE idinfo = ('{self.id}')")
+                cursor.execute(f"SELECT * FROM patientinfo WHERE idinfo = ('{self.patientid}')")
                 result = cursor.fetchone()
             finally:
                 cursor.close()
@@ -417,25 +612,154 @@ class EditPatientInforun(QWidget):
         
         
     def save(self):
-        self.mes=QMessageBox.information(None,'Information','saved sucessfully')
+        name = self.ui.name_lineEdit.text()
+        name=name.split()
+        fname=name[0]
+        lname=name[1]
+        age = self.ui.age_lineEdit.text()
+        sex = self.ui.sex_lineEdit.text()
+        postal = self.ui.postal_lineEdit.text()
+        country = self.ui.country_lineEdit.text()
+        city = self.ui.city_lineEdit.text()
+        education = self.ui.educ_lineEdit.text()
+        email = self.ui.email_lineEdit.text()
+        phone = self.ui.phone_lineEdit.text()
+        income = self.ui.income_lineEdit.text()
+
+        # Perform the database update operation
+        if self.patientid is None:
+            query = f"UPDATE doctor SET first_name = '{fname}', last_name = '{lname}', age = {age}, sex = '{sex}', postal_code = {postal}, country = '{country}' , city = '{city}' , education = '{education}' , email = '{email}' , phone = {phone} , income = {income} WHERE id = {self.docid}"
+        else:
+            query = f"UPDATE patientinfo SET first_name = '{fname}', last_name = '{lname}', age = {age}, sex = '{sex}', postal_code = {postal}, country = '{country}' , city = '{city}' , education = '{education}' , email = '{email}' , phone = {phone} , income = {income} WHERE idinfo = {self.patientid}"
+            
+        con = Connection()
+        
+        try:
+            with con.cursor() as cursor:
+                cursor.execute(query)
+                con.commit()
+                QMessageBox.information(None, 'Information', 'Saved successfully')
+        except Exception as e:
+            cursor.rollback()
+            QMessageBox.critical(None, 'Error', f"An error occurred: {str(e)}")
+        finally:
+            con.close()
+        self.a=Dashboardrun(doc=self.doc,docid=self.docid)
+        self.a.setWindowTitle("Dashboard")
+        self.a.ui.profile_label.setText(self.doc.username)
+        self.a.ui.menu_label.setText("Dashboard")
+        self.close()
+        self.a.show()
+        
 
 class EditPatientMedicalInforun(QWidget):
-    def __init__(self,doc=None,docid=None):
+    def __init__(self,doc=None,docid=None,patientid=None):
         super().__init__()
+        self.patientid=patientid
         self.doc=doc
         self.docid=docid
         self.ui = Ui_editpatientmedicalinfopage()
         self.ui.setupUi(self)
         self.ui.back_pushButton.clicked.connect(self.back)
         self.ui.save_pushButton.clicked.connect(self.save)
+        con =Connection()
+        cursor=con.cursor()
+        try:
+            cursor.execute(f"SELECT * FROM patient WHERE patientinfo_id = ('{self.patientid}')")
+            self.result = cursor.fetchone()
+        finally:
+            # cursor.close()
+            con.close()
+        self.ui.bmi_lineEdit.setText(str(self.result[1]))
+        self.ui.highbp_lineEdit.setText(str(self.result[2]))
+        self.ui.highchol_lineEdit.setText(str(self.result[3]))
+        self.ui.cholcheck_lineEdit.setText(str(self.result[4]))
+        self.ui.smoker_lineEdit.setText(str(self.result[5]))
+        self.ui.stroke_lineEdit.setText(str(self.result[6]))
+        self.ui.heartdisese__lineEdit.setText(str(self.result[7]))
+        self.ui.phyact_lineEdit.setText(str(self.result[8]))
+        self.ui.fruit_lineEdit.setText(str(self.result[9]))
+        self.ui.vegitable_lineEdit.setText(str(self.result[10]))
+        self.ui.heavyalcholcons_lineEdit.setText(str(self.result[11]))
+        self.ui.anyhealthcare_lineEdit.setText(str(self.result[12]))
+        self.ui.nocostbcdoc_lineEdit.setText(str(self.result[13]))
+        self.ui.genhelth_lineEdit.setText(str(self.result[14]))
+        self.ui.menhelth_lineEdit.setText(str(self.result[15]))
+        self.ui.phyhelth_lineEdit.setText(str(self.result[16]))
+        self.ui.diffwalk_lineEdit.setText(str(self.result[17]))
         
     def back(self):
         self.hide()
-        self.a=ViewPatientMedicalInforun(doc=self.doc,docid=self.docid)
+        self.a=ViewPatientMedicalInforun(doc=self.doc,docid=self.docid,patient_id=self.patientid)
+        con =Connection()
+        cursor=con.cursor()
+        try:
+            cursor.execute(f"SELECT * FROM patient WHERE patientinfo_id = ('{self.patientid}')")
+            result = cursor.fetchone()
+        finally:
+            # cursor.close()
+            con.close()
+        
+        self.a.ui.bmi_out_label.setText(str(result[1]))
+        self.a.ui.highbp_out_label.setText(str(result[2]))
+        self.a.ui.highchol_out_label.setText(str(result[3]))
+        self.a.ui.cholcheck_out_label.setText(str(result[4]))
+        self.a.ui.smoker_out_label.setText(str(result[5]))
+        self.a.ui.stroke_out_label.setText(str(result[6]))
+        self.a.ui.heartdis_out_label.setText(str(result[7]))
+        self.a.ui.phyact_out_label.setText(str(result[8]))
+        self.a.ui.fruit_out_label.setText(str(result[9]))
+        self.a.ui.veg_out_label.setText(str(result[10]))
+        self.a.ui.heavyalcholcons_out_label.setText(str(result[11]))
+        self.a.ui.anyhealthcare_out_label.setText(str(result[12]))
+        self.a.ui.nodocbcost_out_label.setText(str(result[13]))
+        self.a.ui.genhelth_out_label.setText(str(result[14]))
+        self.a.ui.menhelth_out_label.setText(str(result[15]))
+        self.a.ui.phyhelth_out_label.setText(str(result[16]))
+        self.a.ui.diffwalk_out_label.setText(str(result[17]))
         self.a.show()
 
     def save(self):
-        self.mes=QMessageBox.information(None,'Information','saved sucessfully')
+        bmi = self.ui.bmi_lineEdit.text()
+        highbp = self.ui.highbp_lineEdit.text()
+        highchol = self.ui.highchol_lineEdit.text()
+        cholcheck = self.ui.cholcheck_lineEdit.text()
+        smoker = self.ui.smoker_lineEdit.text()
+        stroke = self.ui.stroke_lineEdit.text()
+        heartdisease = self.ui.heartdisese__lineEdit.text()
+        phyact = self.ui.phyact_lineEdit.text()
+        fruit = self.ui.fruit_lineEdit.text()
+        vegetable = self.ui.vegitable_lineEdit.text()
+        heavyalcoholcons = self.ui.heavyalcholcons_lineEdit.text()
+        anyhealthcare = self.ui.anyhealthcare_lineEdit.text()
+        nocostbcdoc = self.ui.nocostbcdoc_lineEdit.text()
+        genhelth = self.ui.genhelth_lineEdit.text()
+        menhelth = self.ui.menhelth_lineEdit.text()
+        phyhelth = self.ui.phyhelth_lineEdit.text()
+        diffwalk = self.ui.diffwalk_lineEdit.text()
+
+        # Perform the database update operation
+        query = f"UPDATE patient SET BMI = {bmi} , HIGH_BP = {highbp},HIGH_CHOL = {highchol}, CHOL_CHECK = {cholcheck},SMOKER = {smoker}, STROKE = {stroke},HeartDiseaseorAttack = {heartdisease}, PhysActivity = {phyact}, Fruits = {fruit}, Veggies = {vegetable}, HvyAlcoholConsump = {heavyalcoholcons},AnyHealthcare = {anyhealthcare}, NoDocbcCost = {nocostbcdoc}, GenHlth = {genhelth},MentHlth = {menhelth}, PhysHlth = {phyhelth}, DiffWalk = {diffwalk} WHERE patientinfo_id = {self.patientid}"
+        user_id = self.result[0]  # Assuming result[0] contains the user ID
+        con = Connection()
+        
+        try:
+            with con.cursor() as cursor:
+                # Execute the update query with the user data
+                cursor.execute(query)
+                con.commit()
+                QMessageBox.information(None, 'Information', 'Saved successfully')
+        except Exception as e:
+            cursor.rollback()
+            QMessageBox.critical(None, 'Error', f"An error occurred: {str(e)}")
+        finally:
+            con.close()
+        self.a=Dashboardrun(doc=self.doc,docid=self.docid)
+        self.a.setWindowTitle("Dashboard")
+        self.a.ui.profile_label.setText(self.doc.username)
+        self.a.ui.menu_label.setText("Dashboard")
+        self.close()
+        self.a.show()
         
 
 class Dashboardrun(QMainWindow):
@@ -487,7 +811,7 @@ class Dashboardrun(QMainWindow):
         self.hide()
         sender = self.sender()
         patient_id = sender.property("id")
-        self.a=ViewPatientInforun(pid=patient_id,doc=self.doc,docid=self.docid,patient_id=patient_id)
+        self.a=ViewPatientInforun(doc=self.doc,docid=self.docid,patient_id=patient_id)
         con =Connection()
         cursor=con.cursor()
         try:
@@ -514,7 +838,7 @@ class Dashboardrun(QMainWindow):
         self.hide()
         sender = self.sender()
         patient_id = sender.property("id")
-        self.a=ViewPatientMedicalInforun(patient_id=patient_id,docid=self.docid)
+        self.a=ViewPatientMedicalInforun(patient_id=patient_id,docid=self.docid,doc=self.doc)
         con =Connection()
         cursor=con.cursor()
         try:
@@ -600,7 +924,6 @@ class Dashboardrun(QMainWindow):
         finally:
             cursor.close()
             con.close()
-        
         self.a.ui.postal_out_label.setText(str(result[12]))
         self.a.ui.email_out_label.setText(str(result[6]))
         self.a.ui.phone_out_label.setText(str(result[13]))
@@ -614,22 +937,6 @@ class Dashboardrun(QMainWindow):
         self.a.ui.age_out_label.setText(str(result[4]))
         self.a.ui.name_out_label.setText(str(result[1]) + " " + str(result[2]))
         self.a.show()
-        # self.a.ui.edit_pushButton.clicked.connect(ed())
-        # def ed(self):
-        #     self.hide()
-        #     self.b=EditPatientInforun()
-        #     self.b.setWindowTitle("edit doctor info")
-        #     self.b.ui.editpatientinfo_label.setText("edit doctor info")
-        #     self.b.ui.age_lineEdit.setText(str(result[4]))
-        #     self.b.ui.city_lineEdit.setText(str(result[10]))
-        #     self.b.ui.name_lineEdit.setText(str(result[1]) + " " + str(result[2]))
-        #     self.b.ui.income_lineEdit.setText(str(result[8]))
-        #     self.b.ui.country_lineEdit.setText(str(result[11]))
-        #     self.b.ui.educ_lineEdit.setText(str(result[9]))
-        #     self.b.ui.email_lineEdit.setText(str(result[6]))
-        #     self.b.ui.phone_lineEdit.setText(str(result[13]))
-        #     self.b.ui.postal_lineEdit.setText(str(result[12]))
-        #     self.b.show()
     
     def menu(self):
         pass
@@ -673,6 +980,7 @@ class remarkspagerun(QWidget):
         self.pred=doc.Prediction()
         if self.pred==0:
             self.ui.predout_label.setText("You Are Safe!!")
+            self.ui.remarks_textEdit.hide()
         elif self.pred==1:
             self.ui.predout_label.setText("You Have Diabeties!!")
         else:
