@@ -137,9 +137,11 @@ class PATIENT(USER):
             sql=f"INSERT INTO patientinfo (first_name,last_name,email,phone,sex,age,income,education,city,country,postal_code,doctor_id) VALUES ('{self.fname}', '{self.lname}','{self.email}','{self.phone}', '{self.sex}','{self.age}', '{self.income}','{self.education}', '{self.city}','{self.country}', '{self.postal_code}', '{self.docid}')"
             mycursor.execute(sql)
             con.commit()
+            return 1
         except Exception as e:
             con.rollback()
             QMessageBox.warning(None,"Login", "database error"+ str(e))
+            return 0
         finally:
             mycursor.close()
             con.close()

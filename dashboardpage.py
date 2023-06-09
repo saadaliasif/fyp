@@ -9,8 +9,7 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
 from PySide6.QtWidgets import (QApplication, QComboBox, QHBoxLayout, QHeaderView,
     QLabel, QLineEdit, QMainWindow, QMenu,
     QMenuBar, QPushButton, QSizePolicy, QSpacerItem,
-    QStatusBar, QTableView, QVBoxLayout, QWidget,QStyledItemDelegate)
-import icon_rc
+    QStatusBar, QTableView, QVBoxLayout, QWidget)
 
 class Ui_dashboard(object):
     def setupUi(self, dashboard):
@@ -18,7 +17,8 @@ class Ui_dashboard(object):
             dashboard.setObjectName(u"dashboard")
         dashboard.resize(1124, 832)
         font = QFont()
-        font.setFamilies([u"MV Boli"])
+        font.setFamilies([u"Nirmala UI"])
+        font.setPointSize(10)
         dashboard.setFont(font)
         self.actionQuit = QAction(dashboard)
         self.actionQuit.setObjectName(u"actionQuit")
@@ -32,6 +32,8 @@ class Ui_dashboard(object):
         self.actionAddPatientRecord.setObjectName(u"actionAddPatientRecord")
         self.actionProfileInfo = QAction(dashboard)
         self.actionProfileInfo.setObjectName(u"actionProfileInfo")
+        self.actionLogout = QAction(dashboard)
+        self.actionLogout.setObjectName(u"actionLogout")
         self.centralwidget = QWidget(dashboard)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout_2 = QVBoxLayout(self.centralwidget)
@@ -41,21 +43,11 @@ class Ui_dashboard(object):
         self.verticalLayout.setContentsMargins(7, 7, 7, 7)
         self.horizontalLayout_3 = QHBoxLayout()
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
-        self.menu_pushButton = QPushButton(self.centralwidget)
-        self.menu_pushButton.setObjectName(u"menu_pushButton")
+        self.menu_label = QLabel(self.centralwidget)
+        self.menu_label.setObjectName(u"menu_label")
         font1 = QFont()
         font1.setPointSize(12)
         font1.setBold(True)
-        self.menu_pushButton.setFont(font1)
-        icon = QIcon()
-        icon.addFile(u":/icons/icons/menu.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.menu_pushButton.setIcon(icon)
-        self.menu_pushButton.setIconSize(QSize(50, 50))
-
-        self.horizontalLayout_3.addWidget(self.menu_pushButton)
-
-        self.menu_label = QLabel(self.centralwidget)
-        self.menu_label.setObjectName(u"menu_label")
         self.menu_label.setFont(font1)
 
         self.horizontalLayout_3.addWidget(self.menu_label)
@@ -73,10 +65,6 @@ class Ui_dashboard(object):
         self.profile_pushButton = QPushButton(self.centralwidget)
         self.profile_pushButton.setObjectName(u"profile_pushButton")
         self.profile_pushButton.setFont(font1)
-        icon1 = QIcon()
-        icon1.addFile(u":/icons/icons/person-circle-outline.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.profile_pushButton.setIcon(icon1)
-        self.profile_pushButton.setIconSize(QSize(50, 50))
 
         self.horizontalLayout_3.addWidget(self.profile_pushButton)
 
@@ -91,10 +79,6 @@ class Ui_dashboard(object):
         self.adddoctor_pushButton.setFont(font1)
         self.adddoctor_pushButton.setAutoFillBackground(False)
         self.adddoctor_pushButton.setStyleSheet(u"")
-        icon2 = QIcon()
-        icon2.addFile(u":/icons/icons/add-circle-outline.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.adddoctor_pushButton.setIcon(icon2)
-        self.adddoctor_pushButton.setIconSize(QSize(40, 40))
         self.adddoctor_pushButton.setCheckable(False)
         self.adddoctor_pushButton.setAutoDefault(False)
         self.adddoctor_pushButton.setFlat(False)
@@ -105,10 +89,6 @@ class Ui_dashboard(object):
         self.logout_pushButton.setObjectName(u"logout_pushButton")
         self.logout_pushButton.setFont(font1)
         self.logout_pushButton.setAutoFillBackground(False)
-        icon3 = QIcon()
-        icon3.addFile(u":/icons/icons/remove-circle-outline.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.logout_pushButton.setIcon(icon3)
-        self.logout_pushButton.setIconSize(QSize(40, 40))
 
         self.horizontalLayout_2.addWidget(self.logout_pushButton)
 
@@ -116,10 +96,6 @@ class Ui_dashboard(object):
         self.addpatient_pushButton.setObjectName(u"addpatient_pushButton")
         self.addpatient_pushButton.setFont(font1)
         self.addpatient_pushButton.setAutoFillBackground(False)
-        icon4 = QIcon()
-        icon4.addFile(u":/icons/icons/person-add-outline.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.addpatient_pushButton.setIcon(icon4)
-        self.addpatient_pushButton.setIconSize(QSize(40, 40))
 
         self.horizontalLayout_2.addWidget(self.addpatient_pushButton)
 
@@ -136,14 +112,12 @@ class Ui_dashboard(object):
         self.horizontalLayout.addWidget(self.search_label)
 
         self.search_comboBox = QComboBox(self.centralwidget)
+        self.search_comboBox.addItem("")
+        self.search_comboBox.addItem("")
+        self.search_comboBox.addItem("")
         self.search_comboBox.setObjectName(u"search_comboBox")
         self.search_comboBox.setBaseSize(QSize(0, 0))
         self.search_comboBox.setFont(font1)
-        self.search_comboBox.addItem("full_name")
-        self.search_comboBox.addItem("age")
-        self.search_comboBox.addItem("id")
-        self.search_comboBox.addItem("sex")
-        self.search_comboBox.addItem("resultcol")
 
         self.horizontalLayout.addWidget(self.search_comboBox)
 
@@ -159,24 +133,21 @@ class Ui_dashboard(object):
 
         self.horizontalLayout.addWidget(self.search_pushButton)
 
+        self.horizontalLayout.setStretch(0, 1)
+        self.horizontalLayout.setStretch(1, 1)
+        self.horizontalLayout.setStretch(2, 5)
+        self.horizontalLayout.setStretch(3, 1)
 
         self.verticalLayout.addLayout(self.horizontalLayout)
 
         self.records_tableView = QTableView(self.centralwidget)
         self.records_tableView.setObjectName(u"records_tableView")
-        self.records_tableView.setShowGrid(False)
+        self.records_tableView.setShowGrid(True)
         self.records_tableView.setGridStyle(Qt.NoPen)
         self.records_tableView.setSortingEnabled(False)
-        # self.records_tableView.
- # Create a delegate that does not allow editing
-        # delegate = QStyledItemDelegate()
-        # self.records_tableView.setItemDelegate(delegate)
-
-    # Set the edit triggers to NoEditTriggers
-        self.records_tableView.setEditTriggers(QTableView.NoEditTriggers)
 
         self.verticalLayout.addWidget(self.records_tableView)
-        self.verticalLayout.setStretchFactor(self.records_tableView, 1)
+
         self.verticalLayout.setStretch(0, 2)
         self.verticalLayout.setStretch(1, 2)
         self.verticalLayout.setStretch(2, 2)
@@ -187,15 +158,9 @@ class Ui_dashboard(object):
         dashboard.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(dashboard)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 1124, 26))
+        self.menubar.setGeometry(QRect(0, 0, 1124, 29))
         self.menuFile = QMenu(self.menubar)
         self.menuFile.setObjectName(u"menuFile")
-        self.menuEdit = QMenu(self.menubar)
-        self.menuEdit.setObjectName(u"menuEdit")
-        self.menuView = QMenu(self.menubar)
-        self.menuView.setObjectName(u"menuView")
-        self.menuSetting = QMenu(self.menubar)
-        self.menuSetting.setObjectName(u"menuSetting")
         self.menuHelp = QMenu(self.menubar)
         self.menuHelp.setObjectName(u"menuHelp")
         self.menuAbout = QMenu(self.menubar)
@@ -206,17 +171,10 @@ class Ui_dashboard(object):
         dashboard.setStatusBar(self.statusbar)
 
         self.menubar.addAction(self.menuFile.menuAction())
-        self.menubar.addAction(self.menuEdit.menuAction())
-        self.menubar.addAction(self.menuView.menuAction())
-        self.menubar.addAction(self.menuSetting.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
         self.menubar.addAction(self.menuAbout.menuAction())
+        self.menuFile.addAction(self.actionLogout)
         self.menuFile.addAction(self.actionQuit)
-        self.menuFile.addAction(self.actionAddDoctor)
-        self.menuFile.addAction(self.actionAddPatientRecord)
-        self.menuView.addAction(self.actionProfileInfo)
-        self.menuAbout.addAction(self.actionAbout)
-        self.menuAbout.addAction(self.actionCheck_For_Updates)
 
         self.retranslateUi(dashboard)
 
@@ -234,19 +192,20 @@ class Ui_dashboard(object):
         self.actionAddDoctor.setText(QCoreApplication.translate("dashboard", u"AddDoctor", None))
         self.actionAddPatientRecord.setText(QCoreApplication.translate("dashboard", u"AddPatientRecord", None))
         self.actionProfileInfo.setText(QCoreApplication.translate("dashboard", u"ProfileInfo", None))
-        self.menu_pushButton.setText("")
+        self.actionLogout.setText(QCoreApplication.translate("dashboard", u"Logout", None))
         self.menu_label.setText(QCoreApplication.translate("dashboard", u"pagename", None))
         self.profile_label.setText(QCoreApplication.translate("dashboard", u"profilename", None))
-        self.profile_pushButton.setText("")
+        self.profile_pushButton.setText("Profile")
         self.adddoctor_pushButton.setText(QCoreApplication.translate("dashboard", u"add doctor", None))
         self.logout_pushButton.setText(QCoreApplication.translate("dashboard", u"logout", None))
         self.addpatient_pushButton.setText(QCoreApplication.translate("dashboard", u"add patient record", None))
         self.search_label.setText(QCoreApplication.translate("dashboard", u"Search By: ", None))
+        self.search_comboBox.setItemText(0, QCoreApplication.translate("dashboard", u"full_name", None))
+        self.search_comboBox.setItemText(1, QCoreApplication.translate("dashboard", u"id", None))
+        self.search_comboBox.setItemText(2, QCoreApplication.translate("dashboard", u"resultcol", None))
+
         self.search_pushButton.setText(QCoreApplication.translate("dashboard", u"search", None))
         self.menuFile.setTitle(QCoreApplication.translate("dashboard", u"File", None))
-        self.menuEdit.setTitle(QCoreApplication.translate("dashboard", u"Edit", None))
-        self.menuView.setTitle(QCoreApplication.translate("dashboard", u"View", None))
-        self.menuSetting.setTitle(QCoreApplication.translate("dashboard", u"Setting", None))
         self.menuHelp.setTitle(QCoreApplication.translate("dashboard", u"Help", None))
         self.menuAbout.setTitle(QCoreApplication.translate("dashboard", u"About", None))
     # retranslateUi

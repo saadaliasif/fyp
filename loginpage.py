@@ -50,6 +50,7 @@ class Ui_loginpage(object):
         self.password_lineEdit = QLineEdit(self.groupBox_3)
         self.password_lineEdit.setObjectName(u"password_lineEdit")
         self.password_lineEdit.setGeometry(QRect(10, 40, 251, 31))
+        self.password_lineEdit.setEchoMode(QLineEdit.Password)
         self.remember_me_checkBox = QCheckBox(self.groupBox_3)
         self.remember_me_checkBox.setObjectName(u"remember_me_checkBox")
         self.remember_me_checkBox.setGeometry(QRect(10, 80, 141, 20))

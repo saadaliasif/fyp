@@ -1,13 +1,3 @@
-# -*- coding: utf-8 -*-
-
-################################################################################
-## Form generated from reading UI file 'signuppage.ui'
-##
-## Created by: Qt User Interface Compiler version 6.5.0
-##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
-################################################################################
-
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
     QMetaObject, QObject, QPoint, QRect,
     QSize, QTime, QUrl, Qt)
@@ -15,9 +5,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QFormLayout, QHBoxLayout, QLabel,
-    QLayout, QLineEdit, QPushButton, QSizePolicy,
-    QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QComboBox, QFormLayout, QHBoxLayout,
+    QLabel, QLayout, QLineEdit, QPushButton,
+    QSizePolicy, QSpacerItem, QVBoxLayout, QWidget)
 
 class Ui_signuppage(object):
     def setupUi(self, signuppage):
@@ -85,11 +75,6 @@ class Ui_signuppage(object):
 
         self.formLayout.setWidget(3, QFormLayout.LabelRole, self.sex_label)
 
-        self.sex_lineEdit = QLineEdit(signuppage)
-        self.sex_lineEdit.setObjectName(u"sex_lineEdit")
-
-        self.formLayout.setWidget(3, QFormLayout.FieldRole, self.sex_lineEdit)
-
         self.phone_label = QLabel(signuppage)
         self.phone_label.setObjectName(u"phone_label")
 
@@ -104,11 +89,6 @@ class Ui_signuppage(object):
         self.education_label.setObjectName(u"education_label")
 
         self.formLayout.setWidget(5, QFormLayout.LabelRole, self.education_label)
-
-        self.education_lineEdit = QLineEdit(signuppage)
-        self.education_lineEdit.setObjectName(u"education_lineEdit")
-
-        self.formLayout.setWidget(5, QFormLayout.FieldRole, self.education_lineEdit)
 
         self.income_label = QLabel(signuppage)
         self.income_label.setObjectName(u"income_label")
@@ -125,20 +105,10 @@ class Ui_signuppage(object):
 
         self.formLayout.setWidget(7, QFormLayout.LabelRole, self.city_label)
 
-        self.city_lineEdit = QLineEdit(signuppage)
-        self.city_lineEdit.setObjectName(u"city_lineEdit")
-
-        self.formLayout.setWidget(7, QFormLayout.FieldRole, self.city_lineEdit)
-
         self.country_label = QLabel(signuppage)
         self.country_label.setObjectName(u"country_label")
 
         self.formLayout.setWidget(8, QFormLayout.LabelRole, self.country_label)
-
-        self.country_lineEdit = QLineEdit(signuppage)
-        self.country_lineEdit.setObjectName(u"country_lineEdit")
-
-        self.formLayout.setWidget(8, QFormLayout.FieldRole, self.country_lineEdit)
 
         self.email_label = QLabel(signuppage)
         self.email_label.setObjectName(u"email_label")
@@ -167,11 +137,13 @@ class Ui_signuppage(object):
 
         self.password_lineEdit = QLineEdit(signuppage)
         self.password_lineEdit.setObjectName(u"password_lineEdit")
+        self.password_lineEdit.setEchoMode(QLineEdit.Password)
 
         self.formLayout.setWidget(11, QFormLayout.FieldRole, self.password_lineEdit)
 
         self.confirm_password_lineEdit = QLineEdit(signuppage)
         self.confirm_password_lineEdit.setObjectName(u"confirm_password_lineEdit")
+        self.confirm_password_lineEdit.setEchoMode(QLineEdit.Password)
 
         self.formLayout.setWidget(12, QFormLayout.FieldRole, self.confirm_password_lineEdit)
 
@@ -190,11 +162,51 @@ class Ui_signuppage(object):
 
         self.formLayout.setWidget(13, QFormLayout.LabelRole, self.postal_code_label)
 
+        self.sex_comboBox = QComboBox(signuppage)
+        self.sex_comboBox.addItem("")
+        self.sex_comboBox.addItem("")
+        self.sex_comboBox.setObjectName(u"sex_comboBox")
+
+        self.formLayout.setWidget(3, QFormLayout.FieldRole, self.sex_comboBox)
+
+        self.edu_comboBox = QComboBox(signuppage)
+        self.edu_comboBox.addItem("")
+        self.edu_comboBox.addItem("")
+        self.edu_comboBox.addItem("")
+        self.edu_comboBox.addItem("")
+        self.edu_comboBox.setObjectName(u"edu_comboBox")
+        self.edu_comboBox.setIconSize(QSize(50, 20))
+
+        self.formLayout.setWidget(5, QFormLayout.FieldRole, self.edu_comboBox)
+
+        self.city_comboBox = QComboBox(signuppage)
+        self.city_comboBox.addItem("")
+        self.city_comboBox.addItem("")
+        self.city_comboBox.addItem("")
+        self.city_comboBox.addItem("")
+        self.city_comboBox.addItem("")
+        self.city_comboBox.addItem("")
+        self.city_comboBox.setObjectName(u"city_comboBox")
+        self.city_comboBox.setIconSize(QSize(40, 20))
+
+        self.formLayout.setWidget(7, QFormLayout.FieldRole, self.city_comboBox)
+
+        self.country_comboBox = QComboBox(signuppage)
+        self.country_comboBox.addItem("")
+        self.country_comboBox.setObjectName(u"country_comboBox")
+        self.country_comboBox.setIconSize(QSize(40, 20))
+
+        self.formLayout.setWidget(8, QFormLayout.FieldRole, self.country_comboBox)
+
 
         self.verticalLayout.addLayout(self.formLayout)
 
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout.addItem(self.horizontalSpacer)
+
         self.back_pushButton = QPushButton(signuppage)
         self.back_pushButton.setObjectName(u"back_pushButton")
 
@@ -205,6 +217,9 @@ class Ui_signuppage(object):
 
         self.horizontalLayout.addWidget(self.signup_pushButton)
 
+        self.horizontalLayout.setStretch(0, 6)
+        self.horizontalLayout.setStretch(1, 2)
+        self.horizontalLayout.setStretch(2, 2)
 
         self.verticalLayout.addLayout(self.horizontalLayout)
 
@@ -216,7 +231,7 @@ class Ui_signuppage(object):
 
     def retranslateUi(self, signuppage):
         signuppage.setWindowTitle(QCoreApplication.translate("signuppage", u"Form", None))
-        self.signup_label.setText(QCoreApplication.translate("signuppage", u"SignUp", None))
+        self.signup_label.setText(QCoreApplication.translate("signuppage", u"Registeration", None))
         self.first_name_label.setText(QCoreApplication.translate("signuppage", u"first name:", None))
         self.last_name_label.setText(QCoreApplication.translate("signuppage", u"last name:", None))
         self.age_label.setText(QCoreApplication.translate("signuppage", u"age:", None))
@@ -231,6 +246,23 @@ class Ui_signuppage(object):
         self.password_label.setText(QCoreApplication.translate("signuppage", u"password:", None))
         self.confirm_password_label.setText(QCoreApplication.translate("signuppage", u"confirm password:", None))
         self.postal_code_label.setText(QCoreApplication.translate("signuppage", u"postal code:", None))
+        self.sex_comboBox.setItemText(0, QCoreApplication.translate("signuppage", u"male", None))
+        self.sex_comboBox.setItemText(1, QCoreApplication.translate("signuppage", u"female", None))
+
+        self.edu_comboBox.setItemText(0, QCoreApplication.translate("signuppage", u"undergraduate", None))
+        self.edu_comboBox.setItemText(1, QCoreApplication.translate("signuppage", u"graduate", None))
+        self.edu_comboBox.setItemText(2, QCoreApplication.translate("signuppage", u"postgraduate", None))
+        self.edu_comboBox.setItemText(3, QCoreApplication.translate("signuppage", u"phd", None))
+
+        self.city_comboBox.setItemText(0, QCoreApplication.translate("signuppage", u"islamabad", None))
+        self.city_comboBox.setItemText(1, QCoreApplication.translate("signuppage", u"karachi", None))
+        self.city_comboBox.setItemText(2, QCoreApplication.translate("signuppage", u"multan", None))
+        self.city_comboBox.setItemText(3, QCoreApplication.translate("signuppage", u"lahore", None))
+        self.city_comboBox.setItemText(4, QCoreApplication.translate("signuppage", u"gujranwala", None))
+        self.city_comboBox.setItemText(5, QCoreApplication.translate("signuppage", u"peshawar", None))
+
+        self.country_comboBox.setItemText(0, QCoreApplication.translate("signuppage", u"pakistan", None))
+
         self.back_pushButton.setText(QCoreApplication.translate("signuppage", u"Back", None))
         self.signup_pushButton.setText(QCoreApplication.translate("signuppage", u"SignUp", None))
     # retranslateUi

@@ -1,13 +1,3 @@
-# -*- coding: utf-8 -*-
-
-################################################################################
-## Form generated from reading UI file 'addpatientmedicalinfopage.ui'
-##
-## Created by: Qt User Interface Compiler version 6.5.0
-##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
-################################################################################
-
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
     QMetaObject, QObject, QPoint, QRect,
     QSize, QTime, QUrl, Qt)
@@ -23,13 +13,20 @@ class Ui_addpatientmedicalinfopage(object):
     def setupUi(self, addpatientmedicalinfopage):
         if not addpatientmedicalinfopage.objectName():
             addpatientmedicalinfopage.setObjectName(u"addpatientmedicalinfopage")
-        addpatientmedicalinfopage.resize(1121, 843)
+        addpatientmedicalinfopage.resize(884, 787)
         font = QFont()
-        font.setFamilies([u"MV Boli"])
-        font.setPointSize(14)
+        font.setFamilies([u"Nirmala UI"])
+        font.setPointSize(12)
+        font.setBold(True)
         addpatientmedicalinfopage.setFont(font)
         self.verticalLayout = QVBoxLayout(addpatientmedicalinfopage)
         self.verticalLayout.setObjectName(u"verticalLayout")
+        self.horizontalLayout_19 = QHBoxLayout()
+        self.horizontalLayout_19.setObjectName(u"horizontalLayout_19")
+        self.horizontalSpacer_18 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_19.addItem(self.horizontalSpacer_18)
+
         self.addpatientmedicalinfo_label = QLabel(addpatientmedicalinfopage)
         self.addpatientmedicalinfo_label.setObjectName(u"addpatientmedicalinfo_label")
         font1 = QFont()
@@ -37,14 +34,40 @@ class Ui_addpatientmedicalinfopage(object):
         font1.setPointSize(24)
         self.addpatientmedicalinfo_label.setFont(font1)
 
-        self.verticalLayout.addWidget(self.addpatientmedicalinfo_label)
+        self.horizontalLayout_19.addWidget(self.addpatientmedicalinfo_label)
+
+        self.horizontalSpacer_19 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_19.addItem(self.horizontalSpacer_19)
+
+
+        self.verticalLayout.addLayout(self.horizontalLayout_19)
+
+        self.horizontalLayout_20 = QHBoxLayout()
+        self.horizontalLayout_20.setObjectName(u"horizontalLayout_20")
+        self.browse_pushButton = QPushButton(addpatientmedicalinfopage)
+        self.browse_pushButton.setObjectName(u"pushButton")
+
+        self.horizontalLayout_20.addWidget(self.browse_pushButton)
+
+        self.file_label = QLabel(addpatientmedicalinfopage)
+        self.file_label.setObjectName(u"file_label")
+
+        self.horizontalLayout_20.addWidget(self.file_label)
+
+        self.horizontalSpacer_21 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_20.addItem(self.horizontalSpacer_21)
+
+
+        self.verticalLayout.addLayout(self.horizontalLayout_20)
 
         self.scrollArea = QScrollArea(addpatientmedicalinfopage)
         self.scrollArea.setObjectName(u"scrollArea")
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 1076, 1604))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 839, 1554))
         self.verticalLayout_2 = QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.HIGHBP_groupBox = QGroupBox(self.scrollAreaWidgetContents)
@@ -79,6 +102,7 @@ class Ui_addpatientmedicalinfopage(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.bmi_lineEdit.sizePolicy().hasHeightForWidth())
         self.bmi_lineEdit.setSizePolicy(sizePolicy)
+        self.bmi_lineEdit.setStyleSheet(u"border-radius:10px;")
 
         self.horizontalLayout.addWidget(self.bmi_lineEdit)
 
@@ -307,6 +331,7 @@ class Ui_addpatientmedicalinfopage(object):
         self.genhealth_lineEdit.setObjectName(u"genhealth_lineEdit")
         sizePolicy.setHeightForWidth(self.genhealth_lineEdit.sizePolicy().hasHeightForWidth())
         self.genhealth_lineEdit.setSizePolicy(sizePolicy)
+        self.genhealth_lineEdit.setStyleSheet(u"border-radius:10px;")
 
         self.horizontalLayout_14.addWidget(self.genhealth_lineEdit)
 
@@ -346,6 +371,7 @@ class Ui_addpatientmedicalinfopage(object):
         self.physhealth_lineEdit.setObjectName(u"physhealth_lineEdit")
         sizePolicy.setHeightForWidth(self.physhealth_lineEdit.sizePolicy().hasHeightForWidth())
         self.physhealth_lineEdit.setSizePolicy(sizePolicy)
+        self.physhealth_lineEdit.setStyleSheet(u"border-radius:10px;")
 
         self.horizontalLayout_16.addWidget(self.physhealth_lineEdit)
 
@@ -364,6 +390,7 @@ class Ui_addpatientmedicalinfopage(object):
         self.menhealth_lineEdit.setObjectName(u"menhealth_lineEdit")
         sizePolicy.setHeightForWidth(self.menhealth_lineEdit.sizePolicy().hasHeightForWidth())
         self.menhealth_lineEdit.setSizePolicy(sizePolicy)
+        self.menhealth_lineEdit.setStyleSheet(u"border-radius:10px;")
 
         self.horizontalLayout_15.addWidget(self.menhealth_lineEdit)
 
@@ -399,10 +426,28 @@ class Ui_addpatientmedicalinfopage(object):
 
         self.verticalLayout.addWidget(self.scrollArea)
 
+        self.horizontalLayout_18 = QHBoxLayout()
+        self.horizontalLayout_18.setObjectName(u"horizontalLayout_18")
+        self.horizontalSpacer_20 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_18.addItem(self.horizontalSpacer_20)
+
+        self.back_pushButton = QPushButton(addpatientmedicalinfopage)
+        self.back_pushButton.setObjectName(u"back_pushButton")
+
+        self.horizontalLayout_18.addWidget(self.back_pushButton)
+
         self.addpatientmedicalinfo_pushButton = QPushButton(addpatientmedicalinfopage)
         self.addpatientmedicalinfo_pushButton.setObjectName(u"addpatientmedicalinfo_pushButton")
+        self.addpatientmedicalinfo_pushButton.setFont(font)
 
-        self.verticalLayout.addWidget(self.addpatientmedicalinfo_pushButton)
+        self.horizontalLayout_18.addWidget(self.addpatientmedicalinfo_pushButton)
+
+        self.horizontalLayout_18.setStretch(0, 10)
+        self.horizontalLayout_18.setStretch(1, 2)
+        self.horizontalLayout_18.setStretch(2, 2)
+
+        self.verticalLayout.addLayout(self.horizontalLayout_18)
 
 
         self.retranslateUi(addpatientmedicalinfopage)
@@ -412,7 +457,9 @@ class Ui_addpatientmedicalinfopage(object):
 
     def retranslateUi(self, addpatientmedicalinfopage):
         addpatientmedicalinfopage.setWindowTitle(QCoreApplication.translate("addpatientmedicalinfopage", u"Form", None))
-        self.addpatientmedicalinfo_label.setText(QCoreApplication.translate("addpatientmedicalinfopage", u"Add Patient Medical Info", None))
+        self.addpatientmedicalinfo_label.setText(QCoreApplication.translate("addpatientmedicalinfopage", u"Patient name: ", None))
+        self.browse_pushButton.setText(QCoreApplication.translate("addpatientmedicalinfopage", u"Browse", None))
+        self.file_label.setText(QCoreApplication.translate("addpatientmedicalinfopage", u"no file chosen", None))
         self.HIGHBP_groupBox.setTitle(QCoreApplication.translate("addpatientmedicalinfopage", u"HIGH BLOOD PRESURE:", None))
         self.thbp_radioButton.setText(QCoreApplication.translate("addpatientmedicalinfopage", u"TRUE", None))
         self.fhbp_radioButton.setText(QCoreApplication.translate("addpatientmedicalinfopage", u"FALSE", None))
@@ -456,6 +503,7 @@ class Ui_addpatientmedicalinfopage(object):
         self.groupBox_15.setTitle(QCoreApplication.translate("addpatientmedicalinfopage", u"DIFFWALK", None))
         self.td_radioButton.setText(QCoreApplication.translate("addpatientmedicalinfopage", u"TRUE", None))
         self.fd_radioButton.setText(QCoreApplication.translate("addpatientmedicalinfopage", u"FALSE", None))
-        self.addpatientmedicalinfo_pushButton.setText(QCoreApplication.translate("addpatientmedicalinfopage", u"Submit", None))
+        self.back_pushButton.setText(QCoreApplication.translate("addpatientmedicalinfopage", u"back", None))
+        self.addpatientmedicalinfo_pushButton.setText(QCoreApplication.translate("addpatientmedicalinfopage", u"Save", None))
     # retranslateUi
 

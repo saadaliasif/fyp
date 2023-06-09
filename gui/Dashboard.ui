@@ -12,7 +12,8 @@
   </property>
   <property name="font">
    <font>
-    <family>MV Boli</family>
+    <family>Nirmala UI</family>
+    <pointsize>10</pointsize>
    </font>
   </property>
   <property name="windowTitle">
@@ -36,30 +37,6 @@
       </property>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
-        <item>
-         <widget class="QPushButton" name="menu_pushButton">
-          <property name="font">
-           <font>
-            <pointsize>12</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="icon">
-           <iconset resource="../../Documents/vscode/fyp/fyp/icon.qrc">
-            <normaloff>:/icons/icons/menu.svg</normaloff>:/icons/icons/menu.svg</iconset>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>50</width>
-            <height>50</height>
-           </size>
-          </property>
-         </widget>
-        </item>
         <item>
          <widget class="QLabel" name="menu_label">
           <property name="font">
@@ -114,7 +91,7 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset resource="../../Documents/vscode/fyp/fyp/icon.qrc">
+           <iconset>
             <normaloff>:/icons/icons/person-circle-outline.svg</normaloff>:/icons/icons/person-circle-outline.svg</iconset>
           </property>
           <property name="iconSize">
@@ -160,7 +137,7 @@
            <string>add doctor</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Documents/vscode/fyp/fyp/icon.qrc">
+           <iconset>
             <normaloff>:/icons/icons/add-circle-outline.svg</normaloff>:/icons/icons/add-circle-outline.svg</iconset>
           </property>
           <property name="iconSize">
@@ -199,7 +176,7 @@
            <string>logout</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Documents/vscode/fyp/fyp/icon.qrc">
+           <iconset>
             <normaloff>:/icons/icons/remove-circle-outline.svg</normaloff>:/icons/icons/remove-circle-outline.svg</iconset>
           </property>
           <property name="iconSize">
@@ -226,7 +203,7 @@
            <string>add patient record</string>
           </property>
           <property name="icon">
-           <iconset resource="../../Documents/vscode/fyp/fyp/icon.qrc">
+           <iconset>
             <normaloff>:/icons/icons/person-add-outline.svg</normaloff>:/icons/icons/person-add-outline.svg</iconset>
           </property>
           <property name="iconSize">
@@ -240,7 +217,7 @@
        </layout>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout">
+       <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,5,1">
         <property name="leftMargin">
          <number>7</number>
         </property>
@@ -282,6 +259,21 @@
             <bold>true</bold>
            </font>
           </property>
+          <item>
+           <property name="text">
+            <string>full_name</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>id</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>resultcol</string>
+           </property>
+          </item>
          </widget>
         </item>
         <item>
@@ -334,32 +326,15 @@
      <x>0</x>
      <y>0</y>
      <width>1124</width>
-     <height>26</height>
+     <height>29</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
      <string>File</string>
     </property>
+    <addaction name="actionLogout"/>
     <addaction name="actionQuit"/>
-    <addaction name="actionAddDoctor"/>
-    <addaction name="actionAddPatientRecord"/>
-   </widget>
-   <widget class="QMenu" name="menuEdit">
-    <property name="title">
-     <string>Edit</string>
-    </property>
-   </widget>
-   <widget class="QMenu" name="menuView">
-    <property name="title">
-     <string>View</string>
-    </property>
-    <addaction name="actionProfileInfo"/>
-   </widget>
-   <widget class="QMenu" name="menuSetting">
-    <property name="title">
-     <string>Setting</string>
-    </property>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -370,13 +345,8 @@
     <property name="title">
      <string>About</string>
     </property>
-    <addaction name="actionAbout"/>
-    <addaction name="actionCheck_For_Updates"/>
    </widget>
    <addaction name="menuFile"/>
-   <addaction name="menuEdit"/>
-   <addaction name="menuView"/>
-   <addaction name="menuSetting"/>
    <addaction name="menuHelp"/>
    <addaction name="menuAbout"/>
   </widget>
@@ -409,6 +379,11 @@
   <action name="actionProfileInfo">
    <property name="text">
     <string>ProfileInfo</string>
+   </property>
+  </action>
+  <action name="actionLogout">
+   <property name="text">
+    <string>Logout</string>
    </property>
   </action>
  </widget>
